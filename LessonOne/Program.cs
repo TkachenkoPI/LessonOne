@@ -18,6 +18,7 @@ namespace LessonOne
                 else if (taskNumber == 4) MinimumAndAverageValues();
                 else if (taskNumber == 5) MonthsListing();
                 else if (taskNumber == 6) ReverseArray();
+                else if (taskNumber == 7) TwoCars();
 
                 Console.WriteLine("");
                 Console.WriteLine("===================================================================");
@@ -255,6 +256,23 @@ namespace LessonOne
             //Значения V1, V2, S -должны вводиться через стандартный ввод.
 
             //Результат вывести в стандартный вывод.
+
+            Console.Write("Введите скорость первого автомобиля (V1) км/ч: ");
+            int V1 = GetNumber();
+
+            Console.Write("Введите скорость второго автомобиля (V2) км/ч: ");
+            int V2 = GetNumber();
+
+            Console.Write("Введите расстояние S (в км) между автомобилями в момент опережения: ");
+            int S = GetNumber();
+
+            float time = 0.5f;
+            float way1 = V1 * time;
+            float way2 = V2 * time;
+            float distance = S + (way1 - way2);
+
+            // Вывод результата
+            Console.WriteLine($"Расстояние между автомобилями через 30 минут: {distance} км");
         }
 
         private static void Salary()
