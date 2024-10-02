@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LessonOne
@@ -20,6 +21,7 @@ namespace LessonOne
                 else if (taskNumber == 6) ReverseArray();
                 else if (taskNumber == 7) TwoCars();
                 else if (taskNumber == 8) Salary();
+                else if (taskNumber >= 9) Deposits();
 
                 Console.WriteLine("");
                 Console.WriteLine("===================================================================");
@@ -354,7 +356,44 @@ namespace LessonOne
             //Условия и ограничения:
             //Значение числа должно вводиться через стандартный ввод
             //Результаты вычисления вывести в стандартный вывод
-            //Для вычисления использовать рекурсию           
+            //Для вычисления использовать рекурсию
+            //
+
+            Console.WriteLine("ДЗ: вклады");
+            Console.WriteLine("");
+
+            Console.WriteLine("Внесите сумму.");
+            float deposit = (float)GetNumber();
+            float rate = 0.02f;
+
+            Console.WriteLine("На какое количество месяцев хотите внести сумму?");
+            int monthCount = GetNumber();
+
+            float[] growths = new float[monthCount];
+            float[] deposits = new float[monthCount];
+
+            GrowthDeposit(growths, deposits, 0, monthCount, deposit, rate);
+
+            Console.WriteLine("Прирост суммы вклада: " + string.Join(", ", growths));
+            Console.WriteLine("Cуммы вклада: " + string.Join(", ", deposits));
+        }
+
+        private static void GrowthDeposit(float[] growths, float[] deposits, int index, int monthCount, float deposit, float rate)
+        {
+            if (monthCount == index)
+            {
+                return;
+            }
+            else
+            {
+                float growth = deposit * rate;
+                deposit = deposit + growth;
+
+                growths[index] = growth;
+                deposits[index] = deposit;
+
+                GrowthDeposit(growths, deposits, ++index, monthCount, deposit, rate);
+            }
         }
 
         private static void MonthDays()
