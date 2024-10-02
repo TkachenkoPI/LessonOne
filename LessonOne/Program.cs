@@ -257,6 +257,9 @@ namespace LessonOne
 
             //Результат вывести в стандартный вывод.
 
+            Console.WriteLine("ДЗ: два автомобиля");
+            Console.WriteLine("");
+
             Console.Write("Введите скорость первого автомобиля (V1) км/ч: ");
             int V1 = GetNumber();
 
