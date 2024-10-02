@@ -23,6 +23,7 @@ namespace LessonOne
                 else if (taskNumber == 8) Salary();
                 else if (taskNumber == 9) Deposits();
                 else if (taskNumber == 10) MonthDays();
+                else if (taskNumber == 11) TicTacToe();
 
                 Console.WriteLine("");
                 Console.WriteLine("===================================================================");
@@ -462,10 +463,9 @@ namespace LessonOne
             //  Один из возможных подходов заключается в том, чтобы пронумеровать клетки в доске 3x3 цифрами от 1 до 9,
             //  как цифровая клавиатура NumPad. Если игрок вводит число 7, то выбирается верхний левый угол доски
             //-Игра должна гарантировать соблюдение правил при каждом ходе:
-            //-Нельзя играть в квадрат, который уже занят.
-
-            //-Игрок не может сделать ход не в свою очередь.
-            //-Если игрок пытается делать запрещённый ход, доска должна остаться неизменной.
+            //  -Нельзя играть в квадрат, который уже занят.
+            //  -Игрок не может сделать ход не в свою очередь.
+            //  -Если игрок пытается делать запрещённый ход, доска должна остаться неизменной.
             //-Игра должна уметь определять, когда один из игроков выигрывает, или когда ничья.
             //-При обнаружении конца игры результат отображается пользователю.
             //-Приложение может завершиться после одного раунда игры.
@@ -476,6 +476,131 @@ namespace LessonOne
             //   | O | X
             //---+---+---
             // O |   |
+
+            Console.Clear();
+            Console.WriteLine("Добро пожаловать в игру крестики-нолики");
+
+            int maxMove = 9;
+            int currentMove = 0;
+            bool gameIsEnd = false;
+            string winner = "";
+            string currentPlayer = "X";
+            string[] board = { " ", " ", " ", " ", " ", " ", " ", " ", " " };
+            int[,] winConditions = WinConditions();
+
+            while (true)
+            {
+                ++currentMove;
+
+                DisplayBoard(board);
+
+                Console.WriteLine($"Текущий ход {currentPlayer}");
+                int input = Move(board);
+                board[input - 1] = currentPlayer;
+
+                if (currentMove > 4)
+                {
+                    gameIsEnd = CheckResult(maxMove, currentMove, winner, currentPlayer, board, winConditions);
+                }
+
+                if (gameIsEnd) break;
+
+                currentPlayer = ReverSecurrentPlaer(currentPlayer);
+                Console.Clear();
+
+            }
+
+        }
+
+        private static int[,] WinConditions()
+        {
+            return new int[,]{
+            { 0, 1, 2 },
+            { 3, 4, 5 },
+            { 6, 7, 8 },
+            { 0, 3, 6 },
+            { 1, 4, 7 },
+            { 2, 5, 8 },
+            { 0, 4, 8 },
+            { 2, 4, 6 }
+            };
+        }
+
+        private static bool CheckResult(int maxMove, int currentMove, string winner, string currentPlayer, string[] board, int[,] winConditions)
+        {
+            bool gameIsEnd = false;
+
+            if (CheckWinner(winner, board, winConditions, currentPlayer))
+            {
+                Console.Clear();
+                DisplayBoard(board);
+                Console.WriteLine($"Победил игрок: {currentPlayer}");
+                gameIsEnd = true;
+            }
+            else if (maxMove == currentMove)
+            {
+                Console.Clear();
+                DisplayBoard(board);
+                Console.WriteLine($"Ничья");
+                gameIsEnd = true;
+            }
+
+            return gameIsEnd;
+        }
+
+        private static bool CheckWinner(string winner, string[] board, int[,] winConditions, string currentPlayer)
+        {
+            bool isVictory = false;
+
+            for (int i = 0; i < winConditions.GetLength(0); i++)
+            {
+                isVictory = (board[winConditions[i, 0]] == currentPlayer
+                    && board[winConditions[i, 1]] == currentPlayer
+                    && board[winConditions[i, 2]] == currentPlayer);
+
+                if (isVictory) break;
+            }
+
+            return isVictory;
+        }
+
+        private static string ReverSecurrentPlaer(string currentPlaer)
+        {
+            return currentPlaer == "X" ? "O" : "X";
+        }
+
+        private static void DisplayBoard(string[] board)
+        {
+            Console.WriteLine($" {board[6]} | {board[7]} | {board[8]} ");
+            Console.WriteLine("---+---+---");
+            Console.WriteLine($" {board[3]} | {board[4]} | {board[5]} ");
+            Console.WriteLine("---+---+---");
+            Console.WriteLine($" {board[0]} | {board[1]} | {board[2]} ");
+            Console.WriteLine();
+        }
+
+        private static int Move(string[] board)
+        {
+            int move;
+
+            Console.WriteLine("Введи число от 1 до 9:");
+
+            while (true)
+            {
+                move = GetNumber();
+
+                if (move >= 1 && move <= 9)
+                {
+                    if (board[move - 1] == " ") break;
+                    else Console.WriteLine("Эта позиция уже занята.");
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод. Пожалуйста, введите корректное целое число.");
+                }
+            }
+
+            return move;
         }
 
         private static int GetNumber()
