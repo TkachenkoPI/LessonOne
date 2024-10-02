@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LessonOne
 {
@@ -16,7 +17,9 @@ namespace LessonOne
                 else if (taskNumber == 3) FizzBuzz();
                 else if (taskNumber == 4) MinimumAndAverageValues();
                 else if (taskNumber == 5) MonthsListing();
+                else if (taskNumber == 6) ReverseArray();
 
+                Console.WriteLine("");
                 Console.WriteLine("===================================================================");
                 taskNumber = GetStartNumber();
             }
@@ -98,8 +101,6 @@ namespace LessonOne
 
                 Console.Write(" ");
             }
-
-            Console.WriteLine();
         }
 
         private static void MinimumAndAverageValues()
@@ -118,16 +119,16 @@ namespace LessonOne
             int minValue = array[0];
             int sum = 0;
 
-            foreach (int i in array) 
+            foreach (int i in array)
             {
                 if (minValue > i) minValue = i;
-                
+
                 sum += i;
             }
 
             Console.WriteLine(string.Join(", ", array));
             Console.WriteLine("Минимальное значение в массиве: " + minValue);
-            Console.WriteLine("Среднее значение в массиве: " + (float) sum / arrayLenght);
+            Console.WriteLine("Среднее значение в массиве: " + (float)sum / arrayLenght);
         }
 
         private static void MonthsListing()
@@ -143,7 +144,7 @@ namespace LessonOne
             Console.WriteLine("ДЗ: перечисление месяцев");
             Console.WriteLine("");
             Console.WriteLine("Введи число от 1 до 12:");
-            
+
             int monthNumber;
 
             while (true)
@@ -160,7 +161,7 @@ namespace LessonOne
                 }
             }
 
-            Console.WriteLine($"Название месяца: {(MonthsOfYear) monthNumber}");
+            Console.WriteLine($"Название месяца: {(MonthsOfYear)monthNumber}");
         }
 
         enum MonthsOfYear
@@ -179,7 +180,7 @@ namespace LessonOne
             Декабрь
         }
 
-        private static void FlipArray()
+        private static void ReverseArray()
         {
             //Задача перевернуть массив
             //Давайте сделаем программу, которая использует методы для выполнения задачи.Давайте возьмем массив
@@ -203,6 +204,45 @@ namespace LessonOne
             //Метод Reverse будет делать основную работу -переворачивать массив.
 
             //Реализуйте все три метода.
+            
+            Console.WriteLine("ДЗ: перевернуть массив");
+            Console.WriteLine("");
+
+            int[] numbers = NewRandomArray(10);
+
+            PrintNumbers(numbers);
+            Reverse(numbers);
+            PrintNumbers(numbers);
+        }
+
+        private static void Reverse(int[] numbers) 
+        {
+            int arrayLength = numbers.Length;
+            int[] reverse = new int[arrayLength];
+
+            for (int i = 0; i < arrayLength; i++)
+            {
+                reverse[arrayLength - i - 1] = numbers[i];
+            }
+
+            for (int i = 0; i < arrayLength; i++)
+            {
+                numbers[i] = reverse[i];
+            }
+        }
+
+        private static void PrintNumbers(int[] numbers)
+        {
+            int arrayLength = numbers.Length;
+            Console.WriteLine("");
+
+            for (int i = 0;i < arrayLength; i++)
+            {
+                Console.Write($"{numbers[i]}");
+
+                if (arrayLength != (i + 1)) Console.Write(", "); 
+            }
+
         }
 
         private static void TwoCars()
