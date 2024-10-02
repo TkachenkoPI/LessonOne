@@ -21,7 +21,8 @@ namespace LessonOne
                 else if (taskNumber == 6) ReverseArray();
                 else if (taskNumber == 7) TwoCars();
                 else if (taskNumber == 8) Salary();
-                else if (taskNumber >= 9) Deposits();
+                else if (taskNumber == 9) Deposits();
+                else if (taskNumber == 10) MonthDays();
 
                 Console.WriteLine("");
                 Console.WriteLine("===================================================================");
@@ -406,9 +407,48 @@ namespace LessonOne
             //являются лишь кратные 400, например, 1700, 1800 и 1900 — невисокосные года, 2000 — високосный.
 
             //Условия и ограничения:
-            //            Значение номера месяца и год должны вводиться через стандартный ввод
-            //Результаты вычисления вывести в стандартный вывод
-            //Добавить проверку на корректность ввода данных
+            //  Значение номера месяца и год должны вводиться через стандартный ввод
+            //  Результаты вычисления вывести в стандартный вывод
+            //  Добавить проверку на корректность ввода данных
+
+            Console.WriteLine("ДЗ: дни месяца");
+            Console.WriteLine("");
+
+            Console.WriteLine("Введите год:");
+            int year = GetNumber();
+
+            Console.WriteLine("Введите месяц:");
+            int month = MonthNumber();
+            int days = DaysInMonth(year, month);
+
+            Console.WriteLine($"Дней в {(MonthsOfYear)month} {year} г.: {days}");
+        }
+
+        //Год является високосным, если его номер кратен 4, однако из кратных 100 високосными
+        //являются лишь кратные 400, например, 1700, 1800 и 1900 — невисокосные года, 2000 — високосный.
+        private static bool IsLeapYear(int year)
+        {
+            return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        }
+
+        private static int DaysInMonth(int year, int month)
+        {
+            int days;
+
+            if (month == 1) days = 31;
+            else if (month == 2) days = IsLeapYear(year) ? 29 : 28;
+            else if (month == 3) days = 31;
+            else if (month == 4) days = 30;
+            else if (month == 5) days = 31;
+            else if (month == 6) days = 30;
+            else if (month == 7) days = 31;
+            else if (month == 8) days = 31;
+            else if (month == 9) days = 30;
+            else if (month == 10) days = 31;
+            else if (month == 11) days = 30;
+            else days = 31;
+
+            return days;
         }
 
         private static void TicTacToe()
@@ -470,7 +510,6 @@ namespace LessonOne
 
             return array;
         }
-
 
     }
 }
