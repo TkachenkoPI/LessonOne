@@ -13,6 +13,7 @@ namespace LessonOne
                 if (taskNumber == 1) RemainderDivisionethod();
                 else if (taskNumber == 2) CopyArray();
                 else if (taskNumber == 3) FizzBuzz();
+                else if (taskNumber == 4) MinimumAndAverageValues();
 
                 Console.WriteLine("===================================================================");
                 taskNumber = GetStartNumber();
@@ -35,25 +36,6 @@ namespace LessonOne
             Console.WriteLine("11 - Задача крестики-нолики");
 
             return GetNumber();
-        }
-
-        private static int GetNumber()
-        {
-            int result;
-
-            while (true)
-            {
-                string input = Console.ReadLine();
-
-                if (int.TryParse(input, out result))
-                {
-                    return result;
-                }
-                else
-                {
-                    Console.WriteLine("Некорректный ввод. Пожалуйста, введите корректное целое число.");
-                }
-            }
         }
 
         private static void RemainderDivisionethod()
@@ -79,15 +61,8 @@ namespace LessonOne
             Console.WriteLine("");
             Console.WriteLine("Создаем масив:");
 
-            int[] array = new int[10];
             int[] arrayCopy = new int[10];
-
-            Random random = new Random();
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = random.Next(100);
-            }
+            int[] array = NewRandomArray(10);
 
             Console.WriteLine(string.Join(", ", array));
 
@@ -132,6 +107,25 @@ namespace LessonOne
             //Создайте целочисленный массив и заполните его любыми значениями.
             //Выведите в консоль минимальное значение в массиве и среднее значение.
             //Для обхода используйте foreach.
+
+            Console.WriteLine("ДЗ: минимальное и среднее значение");
+            Console.WriteLine("");
+
+            int arrayLenght = 3;
+            int[] array = NewRandomArray(arrayLenght);
+            int minValue = array[0];
+            int sum = 0;
+
+            foreach (int i in array) 
+            {
+                if (minValue > i) minValue = i;
+                
+                sum += i;
+            }
+
+            Console.WriteLine(string.Join(", ", array));
+            Console.WriteLine("Минимальное значение в массиве: " + minValue);
+            Console.WriteLine("Среднее значение в массиве: " + (float) sum / arrayLenght);
         }
 
         private static void MonthsListing()
@@ -143,6 +137,28 @@ namespace LessonOne
             //попросит пользователя ввести число от 1 до 12. Убедитесь, что пользователь ввёл значение
             //в нужном диапазоне и используйте явное приведение типа для преобразования числа в созданный
             //вами enum. Затем выведите название месяца в консоль.
+
+            Console.WriteLine("ДЗ: перечисление месяцев");
+            Console.WriteLine("");
+
+            Console.WriteLine("Введи число от 1 до 12:");
+            int a = GetNumber();
+        }
+
+        enum MonthsOfYear
+        {
+            January = 1,
+            February,
+            March,
+            April,
+            May,
+            June,
+            July,
+            August,
+            September,
+            October,
+            November,
+            December
         }
 
         private static void FlipArray()
@@ -252,6 +268,40 @@ namespace LessonOne
             //---+---+---
             // O |   |
         }
+
+        private static int GetNumber()
+        {
+            int result;
+
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out result))
+                {
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод. Пожалуйста, введите корректное целое число.");
+                }
+            }
+        }
+
+        private static int[] NewRandomArray(int lenght)
+        {
+            int[] array = new int[lenght];
+
+            Random random = new Random();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = random.Next(100);
+            }
+
+            return array;
+        }
+
 
     }
 }
