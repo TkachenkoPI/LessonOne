@@ -19,6 +19,7 @@ namespace LessonOne
                 else if (taskNumber == 5) MonthsListing();
                 else if (taskNumber == 6) ReverseArray();
                 else if (taskNumber == 7) TwoCars();
+                else if (taskNumber == 8) Salary();
 
                 Console.WriteLine("");
                 Console.WriteLine("===================================================================");
@@ -144,9 +145,17 @@ namespace LessonOne
 
             Console.WriteLine("ДЗ: перечисление месяцев");
             Console.WriteLine("");
-            Console.WriteLine("Введи число от 1 до 12:");
 
+            int monthNumber = MonthNumber();
+
+            Console.WriteLine($"Название месяца: {(MonthsOfYear)monthNumber}");
+        }
+
+        private static int MonthNumber()
+        {
             int monthNumber;
+
+            Console.WriteLine("Введи число от 1 до 12:");
 
             while (true)
             {
@@ -162,7 +171,7 @@ namespace LessonOne
                 }
             }
 
-            Console.WriteLine($"Название месяца: {(MonthsOfYear)monthNumber}");
+            return monthNumber;
         }
 
         enum MonthsOfYear
@@ -205,7 +214,7 @@ namespace LessonOne
             //Метод Reverse будет делать основную работу -переворачивать массив.
 
             //Реализуйте все три метода.
-            
+
             Console.WriteLine("ДЗ: перевернуть массив");
             Console.WriteLine("");
 
@@ -216,7 +225,7 @@ namespace LessonOne
             PrintNumbers(numbers);
         }
 
-        private static void Reverse(int[] numbers) 
+        private static void Reverse(int[] numbers)
         {
             int arrayLength = numbers.Length;
             int[] reverse = new int[arrayLength];
@@ -237,11 +246,11 @@ namespace LessonOne
             int arrayLength = numbers.Length;
             Console.WriteLine("");
 
-            for (int i = 0;i < arrayLength; i++)
+            for (int i = 0; i < arrayLength; i++)
             {
                 Console.Write($"{numbers[i]}");
 
-                if (arrayLength != (i + 1)) Console.Write(", "); 
+                if (arrayLength != (i + 1)) Console.Write(", ");
             }
 
         }
@@ -287,8 +296,50 @@ namespace LessonOne
             //Определить общую зарплату, выплаченную в выбранном месяце.
 
             //Условия и ограничения:
-            //            Элементы массива заранее заданы в коде программы
-            //            Месяц, на который требуется рассчитать зарплату, должен вводиться через стандартный ввод
+            //     Элементы массива заранее заданы в коде программы
+            //     Месяц, на который требуется рассчитать зарплату, должен вводиться через стандартный ввод
+
+            Console.WriteLine("ДЗ: зарплата");
+            Console.WriteLine("");
+
+            Console.WriteLine("Сгенерированый сет данных:");
+            int[,] data = DataSalary();
+
+            Console.WriteLine();
+
+            int monthNumber = MonthNumber();
+            int SalarySum = 0;
+
+            for (int i = 0; i < monthNumber; i++)
+            {
+                for (int j = 0; j < data.GetLength(1); j++)
+                {
+                    SalarySum += data[i, j];
+                }
+            }
+
+            Console.WriteLine($"На {(MonthsOfYear)monthNumber} включительно общая зарплата равна {SalarySum}");
+        }
+
+        static int[,] DataSalary()
+        {
+            int[,] data = new int[12, 7];
+            Random rand = new Random();
+
+            Console.WriteLine();
+
+            for (int i = 0; i < data.GetLength(0); i++)
+            {
+                for (int j = 0; j < data.GetLength(1); j++)
+                {
+                    data[i, j] = rand.Next(10, 20) * 100;
+                    Console.Write(data[i, j] + " ");
+                }
+
+                Console.WriteLine();
+            }
+
+            return data;
         }
 
         private static void Deposits()
