@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace LessonOne
 {
@@ -14,6 +15,7 @@ namespace LessonOne
                 else if (taskNumber == 2) CopyArray();
                 else if (taskNumber == 3) FizzBuzz();
                 else if (taskNumber == 4) MinimumAndAverageValues();
+                else if (taskNumber == 5) MonthsListing();
 
                 Console.WriteLine("===================================================================");
                 taskNumber = GetStartNumber();
@@ -140,25 +142,41 @@ namespace LessonOne
 
             Console.WriteLine("ДЗ: перечисление месяцев");
             Console.WriteLine("");
-
             Console.WriteLine("Введи число от 1 до 12:");
-            int a = GetNumber();
+            
+            int monthNumber;
+
+            while (true)
+            {
+                monthNumber = GetNumber();
+
+                if (monthNumber >= 1 && monthNumber <= 12)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод. Пожалуйста, введите корректное целое число.");
+                }
+            }
+
+            Console.WriteLine($"Название месяца: {(MonthsOfYear) monthNumber}");
         }
 
         enum MonthsOfYear
         {
-            January = 1,
-            February,
-            March,
-            April,
-            May,
-            June,
-            July,
-            August,
-            September,
-            October,
-            November,
-            December
+            Январь = 1,
+            Февраль,
+            Март,
+            Апрель,
+            Май,
+            Июнь,
+            Июль,
+            Август,
+            Сентябрь,
+            Октябрь,
+            Ноябрь,
+            Декабрь
         }
 
         private static void FlipArray()
